@@ -1,0 +1,4 @@
+test_name: Baseline (No QoS)
+gaming_jitter_ms: N/A
+gaming_loss_percent: N/A
+bulk_throughput_mbps: N/A

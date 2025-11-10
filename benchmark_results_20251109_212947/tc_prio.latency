@@ -1,0 +1,5 @@
+test_name: TC PRIO Qdisc
+avg_latency_ms: 6.856
+min_latency_ms: mdev = 2.476
+max_latency_ms: 61.953
+jitter_ms: 59.477

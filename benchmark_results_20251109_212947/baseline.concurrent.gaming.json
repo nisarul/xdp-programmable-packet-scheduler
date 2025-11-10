@@ -1,0 +1,11 @@
+{
+	"start":	{
+		"connected":	[],
+		"version":	"iperf 3.12",
+		"system_info":	"Linux phoenix 6.12.57-v8+ #1 SMP PREEMPT Sun Nov  9 18:14:18 IST 2025 aarch64"
+	},
+	"intervals":	[],
+	"end":	{
+	},
+	"error":	"unable to connect to server: Connection refused"
+}

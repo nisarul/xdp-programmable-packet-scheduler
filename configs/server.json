@@ -1,0 +1,176 @@
+{
+  "profile": "server",
+  "description": "Optimized for server workloads with fair bandwidth allocation",
+  
+  "global": {
+    "scheduler": "wfq",
+    "default_class": 7,
+    "quantum": 1500
+  },
+  
+  "classes": [
+    {
+      "id": 0,
+      "name": "control",
+      "rate_limit": 10485760,
+      "burst_size": 131072,
+      "priority": 0,
+      "weight": 100,
+      "min_bandwidth": 1048576,
+      "max_bandwidth": 10485760
+    },
+    {
+      "id": 1,
+      "name": "interactive",
+      "rate_limit": 52428800,
+      "burst_size": 524288,
+      "priority": 1,
+      "weight": 150,
+      "min_bandwidth": 26214400,
+      "max_bandwidth": 52428800
+    },
+    {
+      "id": 2,
+      "name": "database",
+      "rate_limit": 104857600,
+      "burst_size": 1048576,
+      "priority": 2,
+      "weight": 200,
+      "min_bandwidth": 52428800,
+      "max_bandwidth": 104857600
+    },
+    {
+      "id": 3,
+      "name": "web_services",
+      "rate_limit": 209715200,
+      "burst_size": 2097152,
+      "priority": 3,
+      "weight": 180,
+      "min_bandwidth": 104857600,
+      "max_bandwidth": 209715200
+    },
+    {
+      "id": 4,
+      "name": "file_transfer",
+      "rate_limit": 0,
+      "burst_size": 4194304,
+      "priority": 5,
+      "weight": 100,
+      "min_bandwidth": 0,
+      "max_bandwidth": 0
+    },
+    {
+      "id": 5,
+      "name": "bulk",
+      "rate_limit": 0,
+      "burst_size": 2097152,
+      "priority": 6,
+      "weight": 50,
+      "min_bandwidth": 0,
+      "max_bandwidth": 0
+    },
+    {
+      "id": 6,
+      "name": "background",
+      "rate_limit": 0,
+      "burst_size": 1048576,
+      "priority": 7,
+      "weight": 10,
+      "min_bandwidth": 0,
+      "max_bandwidth": 0
+    },
+    {
+      "id": 7,
+      "name": "default",
+      "rate_limit": 52428800,
+      "burst_size": 524288,
+      "priority": 4,
+      "weight": 80,
+      "min_bandwidth": 10485760,
+      "max_bandwidth": 52428800
+    }
+  ],
+  
+  "rules": [
+    {
+      "comment": "SSH - Control",
+      "protocol": "tcp",
+      "dst_port_min": 22,
+      "dst_port_max": 22,
+      "class_id": 0,
+      "priority": 100
+    },
+    {
+      "comment": "DNS - Control",
+      "protocol": "udp",
+      "dst_port_min": 53,
+      "dst_port_max": 53,
+      "class_id": 0,
+      "priority": 95
+    },
+    {
+      "comment": "PostgreSQL",
+      "protocol": "tcp",
+      "dst_port_min": 5432,
+      "dst_port_max": 5432,
+      "class_id": 2,
+      "priority": 90
+    },
+    {
+      "comment": "MySQL/MariaDB",
+      "protocol": "tcp",
+      "dst_port_min": 3306,
+      "dst_port_max": 3306,
+      "class_id": 2,
+      "priority": 90
+    },
+    {
+      "comment": "Redis",
+      "protocol": "tcp",
+      "dst_port_min": 6379,
+      "dst_port_max": 6379,
+      "class_id": 2,
+      "priority": 90
+    },
+    {
+      "comment": "HTTP",
+      "protocol": "tcp",
+      "dst_port_min": 80,
+      "dst_port_max": 80,
+      "class_id": 3,
+      "priority": 80
+    },
+    {
+      "comment": "HTTPS",
+      "protocol": "tcp",
+      "dst_port_min": 443,
+      "dst_port_max": 443,
+      "class_id": 3,
+      "priority": 80
+    },
+    {
+      "comment": "Custom app port 8080",
+      "protocol": "tcp",
+      "dst_port_min": 8080,
+      "dst_port_max": 8080,
+      "class_id": 3,
+      "priority": 75
+    },
+    {
+      "comment": "FTP data",
+      "protocol": "tcp",
+      "dst_port_min": 20,
+      "dst_port_max": 21,
+      "class_id": 4,
+      "priority": 50
+    },
+    {
+      "comment": "SFTP/SCP",
+      "protocol": "tcp",
+      "dst_port_min": 22,
+      "dst_port_max": 22,
+      "class_id": 1,
+      "priority": 85
+    }
+  ]
+}

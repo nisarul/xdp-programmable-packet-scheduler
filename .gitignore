@@ -1,0 +1,54 @@
+# Build artifacts
+build/
+bin/
+*.o
+*.so
+*.a
+
+# Compiled binaries
+control_plane
+xdp_scheduler
+tc_scheduler
+
+# Results and logs
+results/
+*.log
+*.txt
+*.json.bak
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+*.sublime-*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# BPF pinned maps (if accidentally copied)
+/sys/fs/bpf/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Core dumps
+core
+core.*
+
+# Test outputs
+perf.data
+perf.data.old

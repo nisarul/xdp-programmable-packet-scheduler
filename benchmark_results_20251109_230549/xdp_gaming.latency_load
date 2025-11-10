@@ -1,0 +1,3 @@
+test_name: XDP QoS (Gaming Config)
+loaded_avg_latency_ms: 5.920
+loaded_max_latency_ms: 31.131

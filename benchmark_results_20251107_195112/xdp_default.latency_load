@@ -1,0 +1,3 @@
+test_name: XDP QoS (Default Config)
+loaded_avg_latency_ms: 2.876
+loaded_max_latency_ms: 18.591

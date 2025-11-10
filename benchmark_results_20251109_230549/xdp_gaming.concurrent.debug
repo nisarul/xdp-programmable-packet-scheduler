@@ -1,0 +1,17 @@
+DEBUG: Gaming JSON excerpt:
+					"jitter_ms":	0.045649867586561317,
+					"lost_packets":	0,
+					"lost_percent":	0,
+			"jitter_ms":	0.045649867586561317,
+			"lost_packets":	0,
+			"lost_percent":	0,
+			"jitter_ms":	0,
+			"lost_packets":	0,
+			"lost_percent":	0,
+			"jitter_ms":	0.045649867586561317,
+			"lost_packets":	0,
+			"lost_percent":	0,
+DEBUG: Bulk JSON excerpt:
+					"bits_per_second":	63996426.325209886,
+			"bits_per_second":	64251287.189598814,
+			"bits_per_second":	63996426.325209886,
