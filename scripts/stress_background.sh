@@ -76,28 +76,24 @@ log_info "Starting intensive background network traffic..."
 for i in {1..4}; do
     while true; do
         iperf3 -c $REMOTE_PI -t 30 -p $((5210 + i)) &>/dev/null
-        sleep 2
     done &
 done
 
-# Traffic pattern 2: Bursty traffic (simulates web browsing) - more frequent
+# Traffic pattern 2: Bursty traffic (simulates web browsing) - continuous
 while true; do
     iperf3 -c $REMOTE_PI -t 5 -p 5215 &>/dev/null
-    sleep 5
 done &
 TRAFFIC2_PID=$!
 
-# Traffic pattern 3: Small packet flood (simulates IoT devices) - higher rate
+# Traffic pattern 3: Small packet flood (simulates IoT devices) - continuous
 while true; do
     iperf3 -c $REMOTE_PI -u -b 10M -l 64 -t 20 -p 5216 &>/dev/null
-    sleep 5
 done &
 TRAFFIC3_PID=$!
 
-# Traffic pattern 4: Additional UDP flood for packet processing stress
+# Traffic pattern 4: Additional UDP flood for packet processing stress - continuous
 while true; do
     iperf3 -c $REMOTE_PI -u -b 15M -l 128 -t 15 -p 5217 &>/dev/null
-    sleep 3
 done &
 TRAFFIC4_PID=$!
 

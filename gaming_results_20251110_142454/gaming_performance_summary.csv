@@ -1,0 +1,4 @@
+Method,Jitter_ms,Loss_percent
+baseline,Lost/Total,
+tc_prio,Lost/Total,
+tc_htb,Lost/Total,

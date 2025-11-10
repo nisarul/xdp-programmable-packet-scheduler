@@ -1,0 +1,4 @@
+test_name: Baseline (No QoS)
+gaming_jitter_ms: 	7.4448219990664972
+gaming_loss_percent: 	0
+bulk_throughput_mbps: 939.70

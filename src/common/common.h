@@ -138,6 +138,7 @@ struct global_config {
     __u32 total_rate_limit;
     __u32 flags;
     __u32 quantum;          /* For DRR */
+    __u32 starvation_threshold; /* Max time in ms before serving lower priority */
 };
 
 /* PIFO queue entry */

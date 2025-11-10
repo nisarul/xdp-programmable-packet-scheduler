@@ -5,7 +5,8 @@
   "global": {
     "scheduler": "strict_priority",
     "default_class": 7,
-    "quantum": 1500
+    "quantum": 1500,
+    "starvation_threshold": 10
   },
   
   "classes": [

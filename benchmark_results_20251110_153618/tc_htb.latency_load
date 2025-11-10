@@ -1,0 +1,3 @@
+test_name: TC HTB Qdisc
+loaded_avg_latency_ms: 5.649
+loaded_max_latency_ms: 13.878

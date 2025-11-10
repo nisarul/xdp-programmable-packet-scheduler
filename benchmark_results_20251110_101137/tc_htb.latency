@@ -1,0 +1,5 @@
+test_name: TC HTB Qdisc
+avg_latency_ms: 4.019
+min_latency_ms: mdev = 0.312
+max_latency_ms: 15.986
+jitter_ms: 15.674

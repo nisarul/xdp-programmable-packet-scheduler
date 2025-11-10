@@ -279,11 +279,26 @@ static __always_inline int schedule_wfq(struct __sk_buff *skb,
 /* Strict Priority Scheduler */
 static __always_inline int schedule_strict_priority(struct __sk_buff *skb,
                                                      struct flow_state *flow_st,
-                                                     struct class_config *cfg)
+                                                     struct class_config *cfg,
+                                                     struct global_config *gcfg)
 {
-    /* Directly map priority to queue */
+    /* Basic priority to queue mapping */
     flow_st->queue_id = (cfg->priority < MAX_QUEUES_PER_CLASS) ?
                          cfg->priority : 0;
+    
+    /* Optional starvation protection if threshold is configured */
+    if (gcfg->starvation_threshold > 0) {
+        static __u64 last_low_prio_service = 0;
+        __u64 now = bpf_ktime_get_ns();
+        __u64 threshold_ns = (__u64)gcfg->starvation_threshold * 1000000; /* Convert ms to ns */
+        
+        /* If this is lower priority traffic (priority > 2) and it's been too long */
+        if (cfg->priority > 2 && (now - last_low_prio_service > threshold_ns)) {
+            /* Force service for starvation prevention */
+            last_low_prio_service = now;
+            flow_st->queue_id = 0; /* Temporarily boost to highest queue */
+        }
+    }
     
     return TC_ACT_OK;
 }
@@ -399,7 +414,7 @@ int tc_packet_scheduler(struct __sk_buff *skb)
         break;
     
     case SCHED_STRICT_PRIORITY:
-        ret = schedule_strict_priority(skb, flow_st, cfg);
+        ret = schedule_strict_priority(skb, flow_st, cfg, gcfg);
         break;
     
     case SCHED_DEFICIT_ROUND_ROBIN:

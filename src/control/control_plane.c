@@ -91,6 +91,7 @@ struct global_config {
     __u32 total_rate_limit;
     __u32 flags;
     __u32 quantum;
+    __u32 starvation_threshold;
 };
 
 struct token_bucket {
@@ -162,6 +163,21 @@ int create_pin_dir(void)
     char cmd[256];
     snprintf(cmd, sizeof(cmd), "mkdir -p %s", BPF_PIN_DIR);
     return system(cmd);
+}
+
+/* Clean up incompatible pinned maps */
+int cleanup_pinned_maps(void)
+{
+    char cmd[256];
+    printf("Cleaning up potentially incompatible pinned maps...\n");
+    snprintf(cmd, sizeof(cmd), "rm -rf %s", BPF_PIN_DIR);
+    int ret = system(cmd);
+    if (ret == 0) {
+        printf("Pinned maps cleaned up successfully\n");
+        /* Recreate the directory */
+        return create_pin_dir();
+    }
+    return ret;
 }
 
 /* Load XDP program */
@@ -397,6 +413,9 @@ int load_config_from_json(const char *config_file)
         
         if (json_object_object_get_ex(obj, "quantum", &tmp))
             gcfg.quantum = json_object_get_int(tmp);
+            
+        if (json_object_object_get_ex(obj, "starvation_threshold", &tmp))
+            gcfg.starvation_threshold = json_object_get_int(tmp);
     }
     
     /* Update global config map */
@@ -652,8 +671,9 @@ int main(int argc, char **argv)
         return 1;
     }
     
-    /* Create BPF pin directory */
-    create_pin_dir();
+    /* Clean up old pinned maps first to avoid compatibility issues */
+    printf("Cleaning up old pinned maps...\n");
+    cleanup_pinned_maps();
     
     /* Load and attach XDP program */
     err = load_xdp_program(xdp_file);

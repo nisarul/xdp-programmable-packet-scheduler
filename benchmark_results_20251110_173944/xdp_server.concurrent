@@ -1,0 +1,4 @@
+test_name: XDP QoS (Server Config)
+gaming_jitter_ms: 	0.012370842722944041
+gaming_loss_percent: 	0
+bulk_throughput_mbps: 936.40

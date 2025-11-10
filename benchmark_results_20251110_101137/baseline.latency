@@ -1,0 +1,5 @@
+test_name: Baseline (No QoS)
+avg_latency_ms: 28.887
+min_latency_ms: mdev = 0.263
+max_latency_ms: 178.370
+jitter_ms: 178.107

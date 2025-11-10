@@ -1,0 +1,5 @@
+test_name: XDP QoS (Default Config)
+avg_latency_ms: 1.024
+min_latency_ms: mdev = 0.190
+max_latency_ms: 17.548
+jitter_ms: 17.358

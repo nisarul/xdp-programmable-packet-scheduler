@@ -1,0 +1,4 @@
+test_name: TC PRIO Qdisc
+gaming_jitter_ms: 	1.412787801255607
+gaming_loss_percent: 	0
+bulk_throughput_mbps: 917.79

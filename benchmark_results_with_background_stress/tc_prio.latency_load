@@ -1,0 +1,3 @@
+test_name: TC PRIO Qdisc
+loaded_avg_latency_ms: 5.282
+loaded_max_latency_ms: 10.436
